@@ -1,16 +1,12 @@
 package com.example.demo;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name="person")
-@XmlRootElement
+// @Table(name="person")
 
 public class Person {
-
-
-    private int id;
+    private long id;
     private String name;
     private int age;
     private String hobby;
@@ -27,11 +23,11 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="person_id")
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -39,12 +35,12 @@ public class Person {
         return name;
     }
 
-    @Column(name="name")
+  //  @Column(name="name")
     public void setName(String name) {
         this.name = name;
     }
 
-    @Column(name="age")
+ //   @Column(name="age")
     public int getAge() {
         return age;
     }
@@ -53,7 +49,7 @@ public class Person {
         this.age = age;
     }
 
-    @Column(name="hobby")
+ //   @Column(name="hobby")
     public String getHobby() {
         return hobby;
     }

@@ -16,6 +16,11 @@ public class PersonService {
         return personRepository.findAll();
     }
 
+
+    public Person getById(Long id) {
+        return personRepository.findById(id).orElse(null);
+    }
+
     public Person save(Person p) {
         return personRepository.save(p);
     }

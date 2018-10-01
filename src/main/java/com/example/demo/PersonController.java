@@ -62,6 +62,12 @@ public class PersonController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/all/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Person> toonPersoon(@PathVariable Long id) {
+        Person pers = personService.getById(id);
+        return new ResponseEntity<>(pers, HttpStatus.OK);
+    }
+
 
 
 }
