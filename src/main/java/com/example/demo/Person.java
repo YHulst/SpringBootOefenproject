@@ -1,13 +1,14 @@
 package com.example.demo;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name="person")
+@XmlRootElement
+
 public class Person {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
 
     private int id;
     private String name;
@@ -21,6 +22,10 @@ public class Person {
         this.hobby = hobby;
     }
 
+    public Person(){}
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="person_id")
     public int getId() {
         return id;
