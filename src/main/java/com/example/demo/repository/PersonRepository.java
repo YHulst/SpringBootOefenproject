@@ -1,7 +1,7 @@
-package com.example.demo;
+package com.example.demo.repository;
 
+import com.example.demo.model.Person;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 

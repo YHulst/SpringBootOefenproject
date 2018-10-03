@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.model.Person;
+import com.example.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -56,19 +58,19 @@ public class PersonController {
         return new ResponseEntity<>(pers, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/person", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Iterable<Person>> toonAllen() {
         Iterable<Person> events = personService.geefAllen();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/all/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/person/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Person> toonPersoon(@PathVariable Long id) {
         Person pers = personService.getById(id);
         return new ResponseEntity<>(pers, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/person/new", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/person", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> post(@RequestBody Person p) {
         Person result = personService.save(p);
         return new ResponseEntity<String>("POST Response", HttpStatus.OK);
