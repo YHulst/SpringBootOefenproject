@@ -68,7 +68,17 @@ public class PersonController {
         return new ResponseEntity<>(pers, HttpStatus.OK);
     }
 
+    @PostMapping(path = "/person/new", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> post(@RequestBody Person p) {
+        Person result = personService.save(p);
+        return new ResponseEntity<String>("POST Response", HttpStatus.OK);
+    }
 
-
+    @DeleteMapping(path = "/person/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deletePerson(@PathVariable Long id) {
+        System.out.println(id);
+        personService.deleteById(id);
+        return new ResponseEntity<String>("DELETE Response", HttpStatus.OK);
+    }
 }
 

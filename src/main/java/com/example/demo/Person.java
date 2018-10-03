@@ -3,7 +3,7 @@ package com.example.demo;
 import javax.persistence.*;
 
 @Entity
-// @Table(name="person")
+@Table(name="person")
 
 public class Person {
     private long id;
@@ -21,7 +21,8 @@ public class Person {
     public Person(){}
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+  //  @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
     @Column(name="person_id")
     public long getId() {
         return id;

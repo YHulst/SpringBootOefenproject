@@ -25,6 +25,8 @@
     </properties>
 
     <dependencies>
+
+        <!-- required to enable RESTful web service  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

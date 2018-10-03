@@ -16,7 +16,6 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-
     public Person getById(Long id) {
         return personRepository.findById(id).orElse(null);
     }
@@ -24,4 +23,7 @@ public class PersonService {
     public Person save(Person p) {
         return personRepository.save(p);
     }
+
+    public void deleteById(long id) { personRepository.deleteById(id); }
+
 }
