@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Person;
+import com.example.demo.service.AnimalService;
 import com.example.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,8 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
+    @Autowired
+    AnimalService animalService;
 
     public PersonController() {
         personen = new ArrayList<Person>();
@@ -67,6 +70,13 @@ public class PersonController {
     @GetMapping(path = "/person/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Person> toonPersoon(@PathVariable Long id) {
         Person pers = personService.getById(id);
+        return new ResponseEntity<>(pers, HttpStatus.OK);
+    }
+
+    // Deze werkt niet! Geeft een error
+    @GetMapping(path = "/animal/{id}/person", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Person> showPersonOfAnimal(@PathVariable Long id){
+        Person pers = animalService.getById(id).getPerson();
         return new ResponseEntity<>(pers, HttpStatus.OK);
     }
 
