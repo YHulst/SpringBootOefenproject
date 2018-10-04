@@ -1,15 +1,30 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="person")
 
 public class Person {
+
+    @Id
+    //  @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
+    @Column(name="person_id")
     private long id;
     private String name;
     private int age;
     private String hobby;
+
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id")
+    @MapKey(name = "animal_id")
+    private List<Animal> animals = new ArrayList<>();
 
     public Person(int id, String name, int age, String hobby){
         this.id = id;
@@ -20,10 +35,7 @@ public class Person {
 
     public Person(){}
 
-    @Id
-  //  @GeneratedValue(strategy = GenerationType.AUTO)
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
-    @Column(name="person_id")
+
     public long getId() {
         return id;
     }
@@ -60,4 +72,11 @@ public class Person {
     }
 
 
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
+    }
 }

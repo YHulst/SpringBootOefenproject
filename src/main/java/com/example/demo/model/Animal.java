@@ -1,22 +1,31 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "animal")
 public class Animal {
+
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    @Column(name = "animal_id")
     private long id;
     private String name;
     private int age;
     private String species;
 
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id")
+    private Person person;
+
 
     public Animal() {
     }
 
-    @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
-    @Column(name="animal_id")
+
     public long getId() {
         return id;
     }
@@ -47,5 +56,13 @@ public class Animal {
 
     public void setSpecies(String species) {
         this.species = species;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }
