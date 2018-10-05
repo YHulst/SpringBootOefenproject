@@ -17,7 +17,7 @@ public class Animal {
     private String species;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne /* (fetch = FetchType.LAZY) */
     @JoinColumn(name = "person_id")
     private Person person;
 

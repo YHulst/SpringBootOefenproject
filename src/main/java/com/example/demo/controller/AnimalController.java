@@ -20,18 +20,21 @@ public class AnimalController {
     @Autowired
     PersonService personService;
 
+    // Gets all animals.
     @GetMapping(path = "/animal", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Iterable<Animal>> showAll() {
         Iterable<Animal> animals = animalService.giveAll();
         return new ResponseEntity<>(animals, HttpStatus.OK);
     }
 
+    // Gets an animal with a specific id.
     @GetMapping(path = "/animal/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Animal> showAnimal(@PathVariable Long id) {
         Animal animal = animalService.getById(id);
         return new ResponseEntity<>(animal, HttpStatus.OK);
     }
 
+    // Gets all animals of a person.
     @GetMapping(path = "person/{id}/animal", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Animal>>showAllAnimalsOfPerson(@PathVariable Long id){
         Person person = personService.getById(id);
@@ -39,12 +42,30 @@ public class AnimalController {
         return new ResponseEntity<>(animals, HttpStatus.OK);
     }
 
+    // Creates a new animal.
     @PostMapping(path = "/animal", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> post(@RequestBody Animal a) {
+    public ResponseEntity<String> createAnimal(@RequestBody Animal a) {
         Animal result = animalService.save(a);
         return new ResponseEntity<String>("POST Response", HttpStatus.OK);
     }
 
+    // Creates a new animal and adds it to a person.
+    @PostMapping(path = "/animal/person/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createAnimalAndAddToPerson(@RequestBody Animal a, @PathVariable Long id){
+        Animal animal = animalService.save(a);
+        Person person = personService.getById(id);
+        personService.addAnimaltoPerson(animal, person);
+        return new ResponseEntity<String>("POST Response", HttpStatus.OK);
+    }
+
+    // Adds a person to an already existing animal.
+    @PostMapping(path = "/animal/{animalId}/person/{personId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addAnimalToPerson(@PathVariable Long animalId, @PathVariable Long personId){
+        personService.addAnimaltoPerson(animalService.getById(animalId), personService.getById(personId));
+        return new ResponseEntity<String>("POST Response", HttpStatus.OK);
+    }
+
+    // Deletes an animal with a specific id.
     @DeleteMapping(path = "/animal/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteAnimal(@PathVariable Long id) {
         System.out.println(id);

@@ -61,31 +61,35 @@ public class PersonController {
         return new ResponseEntity<>(pers, HttpStatus.OK);
     }
 
+    // Gets all persons.
     @GetMapping(path = "/person", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Iterable<Person>> toonAllen() {
+    public ResponseEntity<Iterable<Person>> getPersons() {
         Iterable<Person> events = personService.geefAllen();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
+    // Gets a person with a specific id.
     @GetMapping(path = "/person/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Person> toonPersoon(@PathVariable Long id) {
+    public ResponseEntity<Person> getPerson(@PathVariable Long id) {
         Person pers = personService.getById(id);
         return new ResponseEntity<>(pers, HttpStatus.OK);
     }
 
-    // Deze werkt niet! Geeft een error
+    // Gets the person of a specific animal (with a specific id).
     @GetMapping(path = "/animal/{id}/person", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Person> showPersonOfAnimal(@PathVariable Long id){
+    public ResponseEntity<Person> getPersonOfAnimal(@PathVariable Long id){
         Person pers = animalService.getById(id).getPerson();
         return new ResponseEntity<>(pers, HttpStatus.OK);
     }
 
+    // Creates a new person.
     @PostMapping(path = "/person", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> post(@RequestBody Person p) {
+    public ResponseEntity<String> createPerson(@RequestBody Person p) {
         Person result = personService.save(p);
         return new ResponseEntity<String>("POST Response", HttpStatus.OK);
     }
 
+    // Deletes a person with a specific id.
     @DeleteMapping(path = "/person/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deletePerson(@PathVariable Long id) {
         System.out.println(id);
