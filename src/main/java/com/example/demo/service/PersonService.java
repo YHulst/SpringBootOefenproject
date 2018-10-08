@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.PersonNotFoundException;
 import com.example.demo.model.Animal;
 import com.example.demo.model.Person;
 import com.example.demo.repository.PersonRepository;
@@ -20,18 +21,12 @@ public class PersonService {
     }
 
     public Person getById(Long id) {
-        return personRepository.findById(id).orElse(null);
+        Person p = personRepository.findById(id).orElse(null);
+        if (p == null){
+            throw new PersonNotFoundException("Person with id " + id + " not found.");
+        }
+        return p;
     }
-
- /*   public Person getById(Long id) {
-        try{
-      //      Person p = personRepository.findById(id);
-        }
-        catch(Exception e){
-            System.out.println("Person with id " + id + " does not exist.");
-            return null;
-        }
-    }   */
 
     public Person save(Person p) {
         return personRepository.save(p);

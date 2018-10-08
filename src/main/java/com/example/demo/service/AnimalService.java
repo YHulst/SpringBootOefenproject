@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.AnimalNotFoundException;
+import com.example.demo.exception.PersonNotFoundException;
 import com.example.demo.model.Animal;
 import com.example.demo.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,11 @@ public class AnimalService {
     }
 
     public Animal getById(Long id) {
-        return animalRepository.findById(id).orElse(null);
+        Animal a = animalRepository.findById(id).orElse(null);
+        if (a == null){
+            throw new AnimalNotFoundException("Animal with id " + id + " not found.");
+        }
+        return a;
     }
 
     public Animal save(Animal p) {
