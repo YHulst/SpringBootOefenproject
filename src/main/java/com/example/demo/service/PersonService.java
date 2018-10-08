@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.exception.PersonNotFoundException;
+import com.example.demo.exception.EntityNotFoundException;
 import com.example.demo.model.Animal;
 import com.example.demo.model.Person;
 import com.example.demo.repository.PersonRepository;
@@ -20,10 +20,10 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public Person getById(Long id) {
+    public Person getById(Long id) throws EntityNotFoundException {
         Person p = personRepository.findById(id).orElse(null);
         if (p == null){
-            throw new PersonNotFoundException("Person with id " + id + " not found.");
+            throw new EntityNotFoundException("Person with id " + id + " not found.");
         }
         return p;
     }

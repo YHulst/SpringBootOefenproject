@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.exception.AnimalNotFoundException;
-import com.example.demo.exception.PersonNotFoundException;
+import com.example.demo.exception.EntityNotFoundException;
 import com.example.demo.model.Animal;
 import com.example.demo.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,10 @@ public class AnimalService {
         return animalRepository.findAll();
     }
 
-    public Animal getById(Long id) {
+    public Animal getById(Long id) throws EntityNotFoundException {
         Animal a = animalRepository.findById(id).orElse(null);
         if (a == null){
-            throw new AnimalNotFoundException("Animal with id " + id + " not found.");
+            throw new EntityNotFoundException("Animal with id " + id + " not found.");
         }
         return a;
     }

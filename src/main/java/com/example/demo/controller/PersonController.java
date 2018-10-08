@@ -86,7 +86,7 @@ public class PersonController {
     @PostMapping(path = "/person", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createPerson(@RequestBody Person p) {
         Person result = personService.save(p);
-        return new ResponseEntity<String>("POST Response", HttpStatus.OK);
+        return new ResponseEntity<String>("POST Response", HttpStatus.CREATED);
     }
 
     // Deletes a person with a specific id.

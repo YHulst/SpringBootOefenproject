@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.exception.EntityNotFoundException;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -58,7 +59,10 @@ public class Animal {
         this.species = species;
     }
 
-    public Person getPerson() {
+    public Person getPerson() throws EntityNotFoundException {
+        if (person == null){
+            throw new EntityNotFoundException("No Person found for Animal with id " + id + ".");
+        }
         return person;
     }
 

@@ -46,7 +46,7 @@ public class AnimalController {
     @PostMapping(path = "/animal", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createAnimal(@RequestBody Animal a) {
         Animal result = animalService.save(a);
-        return new ResponseEntity<String>("POST Response", HttpStatus.OK);
+        return new ResponseEntity<String>("POST Response", HttpStatus.CREATED);
     }
 
     // Creates a new animal and adds it to a person.
@@ -55,14 +55,14 @@ public class AnimalController {
         Animal animal = animalService.save(a);
         Person person = personService.getById(id);
         personService.addAnimaltoPerson(animal, person);
-        return new ResponseEntity<String>("POST Response", HttpStatus.OK);
+        return new ResponseEntity<String>("POST Response", HttpStatus.CREATED);
     }
 
     // Adds a person to an already existing animal.
     @PostMapping(path = "/animal/{animalId}/person/{personId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addAnimalToPerson(@PathVariable Long animalId, @PathVariable Long personId){
         personService.addAnimaltoPerson(animalService.getById(animalId), personService.getById(personId));
-        return new ResponseEntity<String>("POST Response", HttpStatus.OK);
+        return new ResponseEntity<String>("POST Response", HttpStatus.CREATED);
     }
 
     // Deletes an animal with a specific id.
